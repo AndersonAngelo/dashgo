@@ -27,11 +27,9 @@ import { api } from "../../services/api";
 import { getUsers, useUsers } from "../../services/hooks/useUsers";
 import { queryClient } from "../../services/queryClient";
 
-export default function UserList({users}) {
+export default function UserList() {
   const [page, setPage] = useState(1);
-  const { isLoading, isFetching, data, error } = useUsers(page, {
-    initialData: users,
-  });
+  const { isLoading, isFetching, data, error } = useUsers(page);
 
   const isWideVersion = useBreakpointValue({
     base: false,
@@ -121,11 +119,4 @@ export default function UserList({users}) {
       </Flex>
     </Box>
   );
-}
-
-export const getServerSideProps: GetServerSideProps = async () => {
-  const { users, totalCount } = await getUsers(1);
-  return {
-    props: {}
-  }
 }
